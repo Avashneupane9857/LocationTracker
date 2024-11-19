@@ -26,7 +26,6 @@ const busSchema = new mongoose.Schema({
 
 const Bus = mongoose.model("Bus", busSchema);
 
-// REST API: Update location
 app.post("/api/bus-location", async (req, res) => {
   const { busId, latitude, longitude } = req.body;
   const newLocation = new Bus({
@@ -41,13 +40,11 @@ app.post("/api/bus-location", async (req, res) => {
   res.status(200).send("Location updated");
 });
 
-// REST API: Get all bus locations
 app.get("/api/bus-locations", async (req, res) => {
   const locations = await Bus.find({}).sort({ timestamp: -1 });
   res.json(locations);
 });
 
-// Socket.IO: Real-time updates
 io.on("connection", (socket) => {
   console.log("User connected");
   socket.on("disconnect", () => console.log("User disconnected"));

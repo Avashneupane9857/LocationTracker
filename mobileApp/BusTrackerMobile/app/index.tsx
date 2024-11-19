@@ -26,8 +26,8 @@ const Index: React.FC = () => {
     Location.watchPositionAsync(
       {
         accuracy: Location.Accuracy.High,
-        timeInterval: 5000, // Send location every 5 seconds
-        distanceInterval: 10, // Only if moved 10 meters
+        timeInterval: 5000,
+        distanceInterval: 10,
       },
       (newLocation: LocationData) => {
         setLocation(newLocation);
@@ -35,7 +35,7 @@ const Index: React.FC = () => {
 
         axios
           .post("http://localhost:3001/api/bus-location", {
-            busId: 1, // Replace with the appropriate bus ID
+            busId: 1,
             latitude,
             longitude,
           })

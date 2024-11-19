@@ -9,7 +9,6 @@ const App = () => {
   const [busLocations, setBusLocations] = useState([]);
 
   useEffect(() => {
-    // Fetch initial bus locations
     const fetchLocations = async () => {
       const response = await fetch("http://localhost:3001/api/bus-locations");
       const data = await response.json();
@@ -18,7 +17,6 @@ const App = () => {
 
     fetchLocations();
 
-    // Listen for real-time updates
     socket.on("bus-location-update", (newLocation) => {
       setBusLocations((prev) =>
         prev.map((bus) =>
