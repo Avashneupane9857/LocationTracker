@@ -12,10 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/bus-tracking", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://juisch20220011252:m5ue337uDycOnEAZ@cluster0locationtracker.ahtan.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0LocationTracker",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const busSchema = new mongoose.Schema({
   busId: String,
@@ -28,6 +31,7 @@ const Bus = mongoose.model("Bus", busSchema);
 
 app.post("/api/bus-location", async (req, res) => {
   const { busId, latitude, longitude } = req.body;
+
   const newLocation = new Bus({
     busId,
     latitude,
@@ -35,7 +39,7 @@ app.post("/api/bus-location", async (req, res) => {
     timestamp: new Date(),
   });
   await newLocation.save();
-
+  console.log(newLocation);
   io.emit("bus-location-update", { busId, latitude, longitude });
   res.status(200).send("Location updated");
 });

@@ -11,7 +11,11 @@ const App = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       const response = await fetch("http://localhost:3001/api/bus-locations");
+      console.log("i am here above");
+
       const data = await response.json();
+      console.log("i am here below");
+      console.log(data);
       setBusLocations(data);
     };
 
